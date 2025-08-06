@@ -1,0 +1,147 @@
+2025-08-05 19:51:03,993 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:51:03,994 [INFO] [efhr] running prediction
+2025-08-05 19:51:14,809 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.705041953758436, 'HR': 150.0}
+2025-08-05 19:51:16,816 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:51:16,816 [INFO] [efhr] running prediction
+2025-08-05 19:51:22,047 [INFO] [pred] >>> Trigger condition met
+2025-08-05 19:51:22,062 [INFO] [pred] running prediction
+2025-08-05 19:52:13,706 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 19:52:15,719 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:52:15,721 [INFO] [efhr] running prediction
+2025-08-05 19:53:16,876 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}
+2025-08-05 19:53:18,876 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:53:18,883 [INFO] [efhr] running prediction
+2025-08-05 19:54:19,326 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 19:54:21,337 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:54:21,344 [INFO] [efhr] running prediction
+2025-08-05 19:55:19,390 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 19:55:21,415 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:55:21,422 [INFO] [efhr] running prediction
+2025-08-05 19:56:19,444 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'SVT', 'confidence': 0.8911899328231812}
+2025-08-05 19:56:19,454 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 19:56:21,453 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:56:21,455 [INFO] [efhr] running prediction
+2025-08-05 19:56:29,445 [INFO] [pred] >>> Trigger condition met
+2025-08-05 19:56:29,449 [INFO] [pred] running prediction
+2025-08-05 19:57:12,737 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.705041953758436, 'HR': 150.0}
+2025-08-05 19:57:14,738 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:57:14,740 [INFO] [efhr] running prediction
+2025-08-05 19:58:12,864 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.705041953758436, 'HR': 150.0}
+2025-08-05 19:58:14,899 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:58:14,900 [INFO] [efhr] running prediction
+2025-08-05 19:59:03,517 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 19:59:05,524 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 19:59:05,530 [INFO] [efhr] running prediction
+2025-08-05 19:59:58,226 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:00:00,238 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:00:00,246 [INFO] [efhr] running prediction
+2025-08-05 20:00:51,639 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'Sinus Rhythm', 'confidence': 0.8903809785842896}
+2025-08-05 20:00:55,748 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}
+2025-08-05 20:00:57,760 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:00:57,763 [INFO] [efhr] running prediction
+2025-08-05 20:01:01,632 [INFO] [pred] >>> Trigger condition met
+2025-08-05 20:01:01,634 [INFO] [pred] running prediction
+2025-08-05 20:01:48,154 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:01:50,160 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:01:50,170 [INFO] [efhr] running prediction
+2025-08-05 20:02:24,790 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:02:26,825 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:02:26,841 [INFO] [efhr] running prediction
+2025-08-05 20:03:26,058 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:03:28,046 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:03:28,050 [INFO] [efhr] running prediction
+2025-08-05 20:04:26,865 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:04:28,890 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:04:28,893 [INFO] [efhr] running prediction
+2025-08-05 20:05:22,121 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'SVT', 'confidence': 0.8911899328231812}
+2025-08-05 20:05:27,631 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:05:29,621 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:05:29,621 [INFO] [efhr] running prediction
+2025-08-05 20:05:32,137 [INFO] [pred] >>> Trigger condition met
+2025-08-05 20:05:32,140 [INFO] [pred] running prediction
+2025-08-05 20:06:26,918 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.705041953758436, 'HR': 150.0}
+2025-08-05 20:06:28,923 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:06:28,930 [INFO] [efhr] running prediction
+2025-08-05 20:07:27,967 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:07:29,958 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:07:29,963 [INFO] [efhr] running prediction
+2025-08-05 20:08:50,520 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:08:52,552 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:08:52,559 [INFO] [efhr] running prediction
+2025-08-05 20:10:34,150 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:10:36,174 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:10:36,205 [INFO] [efhr] running prediction
+2025-08-05 20:11:26,951 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'Sinus Rhythm', 'confidence': 0.8903809785842896}
+2025-08-05 20:11:36,965 [INFO] [pred] >>> Trigger condition met
+2025-08-05 20:11:36,972 [INFO] [pred] running prediction
+2025-08-05 20:12:06,701 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}
+2025-08-05 20:12:08,728 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:12:08,731 [INFO] [efhr] running prediction
+2025-08-05 20:13:12,226 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:13:14,254 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:13:14,266 [INFO] [efhr] running prediction
+2025-08-05 20:14:17,824 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}
+2025-08-05 20:14:19,842 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:14:19,856 [INFO] [efhr] running prediction
+2025-08-05 20:15:23,058 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.705041953758436, 'HR': 150.0}
+2025-08-05 20:15:25,041 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:15:25,045 [INFO] [efhr] running prediction
+2025-08-05 20:16:28,046 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:16:30,045 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:16:30,050 [INFO] [efhr] running prediction
+2025-08-05 20:16:52,938 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'SVT', 'confidence': 0.8911899328231812}
+2025-08-05 20:17:02,950 [INFO] [pred] >>> Trigger condition met
+2025-08-05 20:17:02,958 [INFO] [pred] running prediction
+2025-08-05 20:17:25,813 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:17:27,814 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:17:27,816 [INFO] [efhr] running prediction
+2025-08-05 20:18:34,483 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:18:36,494 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:18:36,501 [INFO] [efhr] running prediction
+2025-08-05 20:19:46,418 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:19:48,433 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:19:48,444 [INFO] [efhr] running prediction
+2025-08-05 20:20:47,303 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:20:49,322 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:20:49,331 [INFO] [efhr] running prediction
+2025-08-05 20:21:49,110 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}
+2025-08-05 20:21:51,147 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:21:51,149 [INFO] [efhr] running prediction
+2025-08-05 20:22:16,596 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'SVT', 'confidence': 0.8911899328231812}
+2025-08-05 20:22:26,607 [INFO] [pred] >>> Trigger condition met
+2025-08-05 20:22:26,613 [INFO] [pred] running prediction
+2025-08-05 20:22:41,466 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:22:43,485 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:22:43,492 [INFO] [efhr] running prediction
+2025-08-05 20:23:44,838 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:23:46,858 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:23:46,860 [INFO] [efhr] running prediction
+2025-08-05 20:24:45,723 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:24:47,720 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:24:47,729 [INFO] [efhr] running prediction
+2025-08-05 20:25:45,550 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:25:47,568 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:25:47,572 [INFO] [efhr] running prediction
+2025-08-05 20:26:46,017 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419559907695, 'HR': 150.0}
+2025-08-05 20:26:48,029 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:26:48,037 [INFO] [efhr] running prediction
+2025-08-05 20:27:20,488 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'SVT', 'confidence': 0.8911899328231812}
+2025-08-05 20:27:30,511 [INFO] [pred] >>> Trigger condition met
+2025-08-05 20:27:30,513 [INFO] [pred] running prediction
+2025-08-05 20:27:37,139 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}
+2025-08-05 20:27:39,125 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:27:39,130 [INFO] [efhr] running prediction
+2025-08-05 20:28:38,500 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:28:40,512 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:28:40,520 [INFO] [efhr] running prediction
+2025-08-05 20:29:41,838 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:29:43,849 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:29:43,857 [INFO] [efhr] running prediction
+2025-08-05 20:30:40,849 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419627846629, 'HR': 150.0}
+2025-08-05 20:30:42,864 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:30:42,870 [INFO] [efhr] running prediction
+2025-08-05 20:31:41,532 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.705041953758436, 'HR': 150.0}
+2025-08-05 20:31:43,582 [INFO] [efhr] >>> Trigger condition met
+2025-08-05 20:31:43,586 [INFO] [efhr] running prediction
+2025-08-05 20:32:04,910 [INFO] {'pid': 'central', 'type': 'prediction', 'diagnosis': 'SVT', 'confidence': 0.8911899328231812}
+2025-08-05 20:32:07,283 [INFO] {'pid': 'central', 'type': 'efhr', 'EF': 0.7050419596620547, 'HR': 150.0}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MCN Cardiac Implant Live</title>
+
+  <!-- Mobile scaling -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ─── Tiny in-page stylesheet (no external file needed yet) ─── -->
+  <style>
+    :root {
+      /* size adapts between phone and desktop */
+      --cell: 14vw;
+      --cell-max: 3rem;
+
+      --led-off: #1a1a1a;
+      --fg:      #101417;
+      --bg:      #e8e8e8;
+      --accent:  #95caec;
+      --circle:  #101417; 
+    }
+
+    html,body {
+      height: 90%; margin: 0;
+      background: svar(--bg); color: var(--fg);
+      font-family: system-ui, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    main  { width: 100%; max-width: 480px; padding: 1rem; box-sizing: border-box; }
+    h2    { margin: .25rem 0 0.5rem; text-align: center; font-weight: 600; }
+
+    /* ── Vitals banner ─────────────────────────────────────────── */
+    #vitals {
+      display: flex;
+      flex-direction: row;        /* icon on left, numbers on right */
+      align-items: center;        /* vertically center both items */
+      justify-content: center;    /* center the whole block horizontally */
+      gap: 1rem;                  /* spacing between icon and text */
+      margin-bottom: 1rem;
+    }
+    #vitals .icon {               /* pulsing heart */
+      font-size: 4.2rem;
+      color: var(--accent);
+      animation: pulse 1.2s infinite;
+      top: 0.5rem;
+    }
+    #vitals .numbers { line-height: 1.4; font-size: 1.8rem; font-weight: 600}
+
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(1); }
+      40%           { transform: scale(1.25); }
+    }
+
+    #dial {
+      width: 100%;
+      height: 100%;
+      background: #333;
+      border-radius: 50%;
+    }
+
+    #displaySection {
+      position: relative;
+      width: min(80vw, 340px);
+      aspect-ratio: 1 / 1;
+      margin: auto;
+      margin-bottom: 1rem;
+    }
+
+    /* ── LED matrix ────────────────────────────────────────────── */
+    #ledGrid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      width: 85%;
+      height: 85%;
+      pointer-events: none; /* makes the LEDs not block interaction */
+    }
+    .led {
+      width: 100%; aspect-ratio: 1 / 1;
+      background: var(--led-off);
+      border-radius: 50%;
+      box-shadow: 0 0 2px #000 inset;
+    }
+
+    #ledGrid div:nth-child(1),
+    #ledGrid div:nth-child(5),
+    #ledGrid div:nth-child(21),
+    #ledGrid div:nth-child(25) {
+      visibility: hidden;
+    }
+
+
+    /* ── Numeric table (for debugging) ─────────────────────────── */
+    .grid      { border-collapse: collapse; margin: 0 auto; }
+    .grid td   {
+      width:  3.6rem;
+      height: 1.4rem;
+      text-align: center;
+      border: 1px solid #333;
+      font: 400 .95rem/1 monospace;
+    }
+    /* simple zebra striping */
+    .grid tr:nth-child(even) td:nth-child(even),
+    .grid tr:nth-child(odd)  td:nth-child(odd)  { background: #e0e0e0; }
+    
+    input[type="range"] {
+      width: 200px;
+      accent-color: #56A0D3;  /* matches your app's theme */
+    }
+
+    label {
+      font-weight: 500;
+      margin-right: 0.5rem;
+    }
+
+  </style>
+</head>
+
+<body>
+<main>
+  <h2>MCN Cardiac Implant Live</h2>
+
+  <!-- Vitals banner (placeholder values) -->
+  <div id="vitals">
+    <div class="icon">❤️</div>
+    <div class="numbers">
+      <div id="hrText">HR: -- bpm</div>
+      <div id="efText">EF: -- %</div>
+    </div>
+  </div>
+
+  <div id="displaySection">
+    <!-- 5 × 5 LED matrix (JS will populate the <div class="led"> cells) -->
+    <div id="ledGrid"></div>
+    <div id="dial"></div>
+  </div>
+
+  <!-- Numeric table for raw values -->
+  <table id="gridTable" class="grid"></table>
+
+  <label for="slider">Sensitivity:</label>
+  <input type="range" id="slider" min="0" max="100" value="50" />
+  <span id="sliderValue">50</span>
+
+  <img src="/static/cropped-logo2.png" alt="Bai Lab" style="width: 10rem; display: block; margin: 0 auto;">
+
+  <div id="jsonLog" style="
+      width: 100%;
+      background: #111;
+      color: #0f0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      max-height: 200px;
+      overflow-y: auto;">
+    Waiting for data...
+  </div>
+
+</main>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>

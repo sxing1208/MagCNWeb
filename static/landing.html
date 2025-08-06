@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>FastAPI WebSocket Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { padding: 10px; width: 80%; }
+    button { padding: 10px; }
+    #log { margin-top: 20px; }
+    p { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h2>📡 Logging in to your MagCN Health Hub</h2>
+  <input id="id" placeholder="Type your username" />
+  <h4></h4>
+  <input id="pwd" placeholder="Type your password" type="password" />
+  <h3></h3>
+  <button onclick="sendMessage()">Submit</button>
+  <div id="log"></div>
+
+  <script>
+    const socket = new WebSocket(`ws://${location.host}/ws`);
+
+    socket.onopen = () => log("✅ Connected to server");
+
+    socket.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+
+      if (msg.type === "login_success") {
+        log("✅ Login successful! Redirecting...");
+        window.location.href = "/index";
+      } else if (msg.type === "login_fail") {
+        log("❌ " + msg.message);
+      } else {
+        log("📨 " + JSON.stringify(msg));
+      }
+    };
+
+    socket.onclose = () => log("❌ Disconnected");
+
+    function sendMessage() {
+      const idElem = document.getElementById("id");
+      const pwdElem = document.getElementById("pwd");
+      const id = idElem.value;
+      const pwd = pwdElem.value;
+      const jsonData = { uid: id, password: pwd };
+
+      if (id) {
+        socket.send(JSON.stringify(jsonData));
+        log({ status: "sent", data: jsonData });
+        idElem.value = "";
+        pwdElem.value = "";
+      }
+    }
+
+    function log(message) {
+      const logDiv = document.getElementById("log");
+      const p = document.createElement("p");
+
+      if (typeof message === "object") {
+        p.textContent = JSON.stringify(message, null, 2);
+      } else {
+        p.textContent = message;
+      }
+
+      logDiv.appendChild(p);
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>
