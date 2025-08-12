@@ -129,12 +129,30 @@ def batch_prediction(frames: np.ndarray) -> np.ndarray:
 
 
 def get_volume(predicted: np.ndarray) -> np.ndarray:
-    xy = predicted[:, :, :2]
-    dia = 0.5 * (
-        (xy[..., 0].max(0) - xy[..., 0].min(0))
-        + (xy[..., 1].max(0) - xy[..., 1].min(0))
-    )
-    return (dia / dia.min()) ** 3 - 1
+    """
+    predicted: (4, N, 3) -> x,y,z where we use only x,y
+    returns  : (N,)      -> volume proxy, arbitrary units
+    """
+    xy = predicted[:, :, :2].astype(np.float32)      # (4, N, 2)
+    c  = xy.mean(axis=0)                              # (N, 2)
+    d  = xy - c[None, :, :]                           # (4, N, 2)
+    rms_r = np.sqrt((d**2).sum(axis=2).mean(axis=0))  # (N,)
+    D = 2.0 * rms_r                                   # diameter proxy
+    V = D**3                                          # volume proxy
+    return V/np.min(V)-1
+
+def get_volume_rt(predicted: np.ndarray) -> np.ndarray:
+    """
+    predicted: (4, N, 3) -> x,y,z where we use only x,y
+    returns  : (N,)      -> volume proxy, arbitrary units
+    """
+    xy = predicted[:, :, :2].astype(np.float32)      # (4, N, 2)
+    c  = xy.mean(axis=0)                              # (N, 2)
+    d  = xy - c[None, :, :]                           # (4, N, 2)
+    rms_r = np.sqrt((d**2).sum(axis=2).mean(axis=0))  # (N,)
+    D = 2.0 * rms_r                                   # diameter proxy
+    V = D**3                                          # volume proxy
+    return V
 
 
 # ---------- nan helper ----------

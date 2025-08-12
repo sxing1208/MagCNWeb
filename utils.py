@@ -309,18 +309,16 @@ def batch_prediction(combined: np.ndarray, workers: int = 1):
     predicted = np.concatenate((pos_array, heights[:, :, None]), axis=-1)
     return predicted
 
+def get_volume(predicted: np.ndarray) -> np.ndarray:
+    """
+    predicted: (4, N, 3) -> x,y,z where we use only x,y
+    returns  : (N,)      -> volume proxy, arbitrary units
+    """
+    xy = predicted[:, :, :2].astype(np.float32)      # (4, N, 2)
+    c  = xy.mean(axis=0)                              # (N, 2)
+    d  = xy - c[None, :, :]                           # (4, N, 2)
+    rms_r = np.sqrt((d**2).sum(axis=2).mean(axis=0))  # (N,)
+    D = 2.0 * rms_r                                   # diameter proxy
+    V = D**3                                          # volume proxy
+    return np.max(V)/np.min(V)-1
 
-def get_volume(predicted_data: np.ndarray):
-    p0 = predicted_data[0, :, :2]
-    p1 = predicted_data[1, :, :2]
-    p2 = predicted_data[2, :, :2]
-    p3 = predicted_data[3, :, :2]
-
-    all_points = np.stack([p0, p1, p2, p3], axis=0)
-
-    max_x_spacing = np.max(all_points[:, :, 0], axis=0) - np.min(all_points[:, :, 0], axis=0)
-    max_y_spacing = np.max(all_points[:, :, 1], axis=0) - np.min(all_points[:, :, 1], axis=0)
-
-    dia = 0.5 * (max_x_spacing + max_y_spacing)
-
-    return (dia / np.min(dia)) ** 3 - 1

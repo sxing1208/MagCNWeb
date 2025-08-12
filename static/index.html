@@ -1,173 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>MCN Cardiac Implant Live</title>
-
-  <!-- Mobile scaling -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- ─── Tiny in-page stylesheet (no external file needed yet) ─── -->
+  <meta charset="UTF-8">
+  <title>Bai Lab Monitor</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root {
-      /* size adapts between phone and desktop */
-      --cell: 14vw;
-      --cell-max: 3rem;
-
-      --led-off: #1a1a1a;
-      --fg:      #101417;
-      --bg:      #e8e8e8;
-      --accent:  #95caec;
-      --circle:  #101417; 
-    }
-
-    html,body {
-      height: 90%; margin: 0;
-      background: svar(--bg); color: var(--fg);
-      font-family: system-ui, sans-serif;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    main  { width: 100%; max-width: 480px; padding: 1rem; box-sizing: border-box; }
-    h2    { margin: .25rem 0 0.5rem; text-align: center; font-weight: 600; }
-
-    /* ── Vitals banner ─────────────────────────────────────────── */
-    #vitals {
-      display: flex;
-      flex-direction: row;        /* icon on left, numbers on right */
-      align-items: center;        /* vertically center both items */
-      justify-content: center;    /* center the whole block horizontally */
-      gap: 1rem;                  /* spacing between icon and text */
-      margin-bottom: 1rem;
-    }
-    #vitals .icon {               /* pulsing heart */
-      font-size: 4.2rem;
-      color: var(--accent);
-      animation: pulse 1.2s infinite;
-      top: 0.5rem;
-    }
-    #vitals .numbers { line-height: 1.4; font-size: 1.8rem; font-weight: 600}
-
-    @keyframes pulse {
-      0%, 80%, 100% { transform: scale(1); }
-      40%           { transform: scale(1.25); }
-    }
-
-    #dial {
-      width: 100%;
-      height: 100%;
-      background: #333;
-      border-radius: 50%;
-    }
-
-    #displaySection {
-      position: relative;
-      width: min(80vw, 340px);
-      aspect-ratio: 1 / 1;
-      margin: auto;
-      margin-bottom: 1rem;
-    }
-
-    /* ── LED matrix ────────────────────────────────────────────── */
-    #ledGrid {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0.75rem;
-      width: 85%;
-      height: 85%;
-      pointer-events: none; /* makes the LEDs not block interaction */
-    }
-    .led {
-      width: 100%; aspect-ratio: 1 / 1;
-      background: var(--led-off);
-      border-radius: 50%;
-      box-shadow: 0 0 2px #000 inset;
-    }
-
-    #ledGrid div:nth-child(1),
-    #ledGrid div:nth-child(5),
-    #ledGrid div:nth-child(21),
-    #ledGrid div:nth-child(25) {
-      visibility: hidden;
-    }
-
-
-    /* ── Numeric table (for debugging) ─────────────────────────── */
-    .grid      { border-collapse: collapse; margin: 0 auto; }
-    .grid td   {
-      width:  3.6rem;
-      height: 1.4rem;
-      text-align: center;
-      border: 1px solid #333;
-      font: 400 .95rem/1 monospace;
-    }
-    /* simple zebra striping */
-    .grid tr:nth-child(even) td:nth-child(even),
-    .grid tr:nth-child(odd)  td:nth-child(odd)  { background: #e0e0e0; }
-    
-    input[type="range"] {
-      width: 200px;
-      accent-color: #56A0D3;  /* matches your app's theme */
-    }
-
-    label {
-      font-weight: 500;
-      margin-right: 0.5rem;
-    }
-
+    body { margin: 0; font-family: Arial, sans-serif; background: white; }
+    .phone-frame { width: 400px; margin: auto; border-radius: 40px; padding: 10px; background-color: white; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 5px 10px; gap: 10px; }
+    .battery-cluster { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .battery-row { display: flex; align-items: center; gap: 8px; }
+    .battery-icon { position: relative; width: 30px; height: 14px; border: 1.8px solid #111; border-radius: 3.5px; box-sizing: border-box; }
+    .battery-icon::after { content: ""; position: absolute; right: -4.5px; top: 50%; transform: translateY(-50%); width: 3.5px; height: 7.5px; background: #111; border-radius: 1.5px; }
+    .battery-level { position: absolute; left: 1.6px; top: 1.6px; bottom: 1.6px; border-radius: 2px; background: #16a34a; width: 62%; }
+    .battery-percent { font-weight: bold; }
+    .battery-time { font-size: 10px; color: #555; margin-left: 2px; }
+    .logo img { height: 30px; display: block; }
+    .logo svg { height: 35px; width: auto; max-width: none; }
+    .logo { display: flex; align-items: center; min-width: 100px; }
+    .section { border: 3px solid #004477; border-radius: 15px; padding: 10px; margin: 10px 0; }
+    .metrics-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .metric-box { width: 40%; text-align: center; padding: 10px; border: 2px solid #004477; border-radius: 10px; }
+    .metric-title { font-weight: bold; font-size: 14px; color: #004477; }
+    .metric-value { font-size: 36px; margin-top: 5px; }
+    .note { color: orange; font-size: 10px; margin-top: 5px; display: none; }
+    .score-row { display: flex; padding: 0 10px; font-size: 18px; color: goldenrod; }
+    .diagnosis { display: flex; padding: 0 10px; font-size: 18px; color: goldenrod; }
+    .bottom-bar { display: flex; justify-content: space-around; background-color: #006699; padding: 10px; border-radius: 20px; }
+    .bottom-bar button { display: flex; align-items: center; justify-content: center; font-size: 0; background-color: #cceeff; border: none; padding: 10px 14px; border-radius: 10px; cursor: pointer; }
+    .bottom-bar svg { width: 22px; height: 22px; display: block; }
+    .icon-black-fill { fill: #000; } .icon-black-stroke { stroke: #000; }
+    canvas { width: 100% !important; height: 150px !important; max-width: 100% !important; max-height: 150px !important; }
+    .chart-container { position: relative; height: 150px; width: 100%; overflow: hidden; }
+    .status { font-size: 12px; color: #555; margin-left: auto; }
   </style>
 </head>
-
 <body>
-<main>
-  <h2>MCN Cardiac Implant Live</h2>
+  <div class="phone-frame">
+    <div class="top-bar">
+      <div class="battery-cluster">
+        <div class="battery-row">
+          <div class="battery-icon" aria-label="Battery">
+            <div class="battery-level" style="width:62%"></div>
+          </div>
+          <div class="battery-percent">62%</div>
+        </div>
+        <div class="battery-time">~2h 15m remaining</div>
+      </div>
+      <div class="logo">
+        <img src="/static/cropped-logo2.png" alt="Bai Lab Logo">
+      </div>
+      <div id="connectionStatus" class="status">--</div>
+    </div>
 
-  <!-- Vitals banner (placeholder values) -->
-  <div id="vitals">
-    <div class="icon">❤️</div>
-    <div class="numbers">
-      <div id="hrText">HR: -- bpm</div>
-      <div id="efText">EF: -- %</div>
+    <div class="section">
+      <div style="text-align: center; font-weight: bold; color: #004477; margin-bottom: 10px; font-size: 16px;">
+        Ejection Fraction Over Time
+      </div>
+      <div class="chart-container">
+        <canvas id="topChart"></canvas>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-box">
+        <div class="metric-title">Heart Rate</div>
+        <div class="metric-value" id="hrVal" style="color:#222;">--</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-title">Ejection Fraction</div>
+        <div class="metric-value" id="efVal" style="color:#222;">--</div>
+        <div class="note" id="efNote">⚠ Possible cardiac dysfunction. Consult a doctor.</div>
+      </div>
+    </div>
+
+    <div class="score-row">
+      <div>Heart Score: <strong id="scoreVal">--</strong></div>
+    </div>
+    
+    <div class="score-row">
+      Diagnosis: <strong class="diagnosis" id="diagVal">--</strong>
+    </div>
+
+    <div class="section">
+      <div style="text-align: center; font-weight: bold; color: #004477; margin-bottom: 10px; font-size: 16px;">
+        Heart Volume Waveform
+      </div>
+      <div class="chart-container">
+        <canvas id="bottomChart"></canvas>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <button title="Bluetooth">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="icon-black-stroke" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                d="M7 7l10 10-5 4V3l5 4-10 10" />
+        </svg>
+      </button>
+      <button title="Pause">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect class="icon-black-fill" x="6" y="4" width="4" height="16" rx="1.5" />
+          <rect class="icon-black-fill" x="14" y="4" width="4" height="16" rx="1.5" />
+        </svg>
+      </button>
+      <button title="Play">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="icon-black-fill" d="M8 5v14l11-7-11-7z" />
+        </svg>
+      </button>
     </div>
   </div>
 
-  <div id="displaySection">
-    <!-- 5 × 5 LED matrix (JS will populate the <div class="led"> cells) -->
-    <div id="ledGrid"></div>
-    <div id="dial"></div>
-  </div>
+  <script>
+    // Charts (start with no data: nulls render as gaps)
+    const topCanvas = document.getElementById('topChart');
+    const bottomCanvas = document.getElementById('bottomChart');
+    topCanvas.width = 360; topCanvas.height = 100;
+    bottomCanvas.width = 360; bottomCanvas.height = 100;
 
-  <!-- Numeric table for raw values -->
-  <table id="gridTable" class="grid"></table>
+    const topChart = new Chart(topCanvas, {
+      type: 'bar',
+      data: {
+        labels: Array(30).fill(''),
+        datasets: [{ label: 'Ejection Fraction %', backgroundColor: '#0077cc', borderWidth: 0, data: Array(30).fill(null) }]
+      },
+      options: {
+        animation: false, responsive: true, maintainAspectRatio: false,
+        scales: {
+          x: { display: true, grid: { display: false }, ticks: { display: false },
+              title: { display: true, text: 'Time (seconds ago)', color: '#004477', font: { size: 12 } } },
+          y: { display: true, min: 30, max: 70, beginAtZero: false,
+              title: { display: true, text: 'Ejection Fraction (%)', color: '#004477', font: { size: 12 } },
+              ticks: { color: '#004477', font: { size: 10 }, stepSize: 10 } }
+        }, plugins: { legend: { display: false } }
+      }
+    });
 
-  <label for="slider">Sensitivity:</label>
-  <input type="range" id="slider" min="0" max="100" value="50" />
-  <span id="sliderValue">50</span>
+    const bottomChart = new Chart(bottomCanvas, {
+      type: 'line',
+      data: {
+        labels: Array(30).fill(''),
+        datasets: [{ label: 'Heart Volume', backgroundColor: 'transparent', borderColor: '#0077cc', borderWidth: 2, data: Array(30).fill(null), pointRadius: 0, tension: 0.3 }]
+      },
+      options: {
+        animation: false, responsive: true, maintainAspectRatio: false,
+        scales: {
+          x: { display: true, grid: { display: false }, ticks: { display: false },
+              title: { display: true, text: 'Time (seconds ago)', color: '#004477', font: { size: 12 } } },
+          y: { display: true, min: -1.5, max: 1.5, beginAtZero: false,
+              title: { display: true, text: 'Heart Volume (a.u.)', color: '#004477', font: { size: 12 } },
+              ticks: { color: '#004477', font: { size: 10 }, stepSize: 0.5 } }
+        }, plugins: { legend: { display: false } }
+      }
+    });
 
-  <img src="/static/cropped-logo2.png" alt="Bai Lab" style="width: 10rem; display: block; margin: 0 auto;">
+    // DOM references (initialized to "--" in HTML)
+    const heartRateElement = document.getElementById('hrVal');
+    const ejectionFractionElement = document.getElementById('efVal');
+    const diagnosisElement = document.getElementById('diagVal');
+    const scoreElement = document.getElementById('scoreVal');
+    const noteElement = document.getElementById('efNote');
+    const connectionStatusElement = document.getElementById('connectionStatus');
 
-  <div id="jsonLog" style="
-      width: 100%;
-      background: #111;
-      color: #0f0;
-      font-family: monospace;
-      font-size: 0.85rem;
-      padding: 0.5rem;
-      margin-top: 1rem;
-      border-radius: 6px;
-      white-space: pre-wrap;
-      overflow-x: auto;
-      max-height: 200px;
-      overflow-y: auto;">
-    Waiting for data...
-  </div>
+    // WebSocket (no auto data generation)
+    let ws_1 = null;
+    let ws_2 = null;
 
-</main>
+    const wsUrl_1 = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
+    const wsUrl_2 = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws2';
+    function connectWebSocket(ws, wsUrl) {
+      try {
+        ws = new WebSocket(wsUrl);
 
-<script src="/static/app.js"></script>
+        ws.onopen = () => {
+          connectionStatusElement.textContent = 'Connected';
+          connectionStatusElement.style.color = 'limegreen';
+        };
 
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            updateUI(data);
+          } catch (e) { console.error('WS parse error:', e); }
+        };
+
+        ws.onclose = () => {
+          connectionStatusElement.textContent = 'Disconnected';
+          connectionStatusElement.style.color = '#555';
+          ws = null;
+        };
+
+        ws.onerror = () => {
+          connectionStatusElement.textContent = 'Connection Error';
+          connectionStatusElement.style.color = 'red';
+        };
+      } catch (e) {
+        connectionStatusElement.textContent = 'Connection Failed';
+        connectionStatusElement.style.color = 'red';
+      }
+    }
+
+    function updateUI(data) {
+      if (data.pid !== 'central') return;
+
+      if (data.type === 'efhr') {
+        if (typeof data.EF === 'number') {
+          const efPct = Math.round(data.EF*100); // or Math.round(data.EF*100) if backend sends 0..1
+          ejectionFractionElement.textContent = `${efPct}%`;
+          ejectionFractionElement.style.color = getEjectionFractionColor(efPct);
+          updateEjectionFractionNote(efPct);
+
+          // push to EF chart
+          topChart.data.datasets[0].data.shift();
+          topChart.data.datasets[0].data.push(Math.max(30, Math.min(70, efPct)));
+          topChart.update('none');
+        }
+        if (typeof data.HR === 'number') {
+          const hr = Math.round(data.HR);
+          heartRateElement.textContent = `${hr} bpm`;
+          heartRateElement.style.color = getHeartRateColor(hr);
+        }
+      }
+
+      if (data.type === 'wf' && typeof data.volume === 'number') {
+        const v = Math.max(-1.5, Math.min(1.5, data.volume));
+        bottomChart.data.datasets[0].data.shift();
+        bottomChart.data.datasets[0].data.push(v);
+        bottomChart.update('none');
+      }
+
+      if (data.type === 'prediction' && data.diagnosis != null) {
+        const conf = typeof data.confidence === 'number' ? `; Confidence ${Math.round(data.confidence*100)}` : '';
+        diagnosisElement.textContent = `${data.diagnosis}${conf}`;
+      }
+    }
+
+    function getHeartRateColor(hr) {
+      return (hr < 60 || hr > 100) ? 'orange' : 'limegreen';
+    }
+    function getEjectionFractionColor(ef) {
+      if (ef < 50) return 'orange';
+      if (ef < 55) return 'gold';
+      return 'limegreen';
+    }
+    function updateEjectionFractionNote(ef) {
+      if (ef < 50) { noteElement.style.display = 'block'; }
+      else { noteElement.style.display = 'none'; }
+    }
+
+    // Kick off WS connection
+    connectWebSocket(ws_1, wsUrl_1);
+    connectWebSocket(ws_2, wsUrl_2);
+  </script>
 </body>
 </html>

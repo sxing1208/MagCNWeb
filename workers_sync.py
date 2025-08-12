@@ -9,7 +9,7 @@ from typing import Deque
 
 import numpy as np
 from scipy.signal import resample, find_peaks
-from utils_fast import batch_prediction, get_volume
+from utils_fast import batch_prediction, get_volume, _optimise_single, get_volume_rt
 
 # Config
 s_freq = 5
@@ -20,6 +20,7 @@ diagnosis = {0: "Afib", 1: "SVT", 2: "Sinus Bradycardi", 3: "Sinus Rhythm"}
 frame_buffer: Deque[np.ndarray] | None = None
 pred_event = threading.Event()
 efhr_event = threading.Event()
+wf_event = threading.Event()
 
 
 def _safe_send(loop, ws, payload: dict):
@@ -105,4 +106,43 @@ class EfHrWorker(threading.Thread):
                 self.loop,
                 self.ws,
                 {"pid": "central", "type": "efhr", "EF": ef, "HR": hr},
+            )
+
+class WfWorker(threading.Thread):
+    def __init__(self, ws, loop):
+        super().__init__(daemon=True)
+        self.ws = ws
+        self.loop = loop
+        self.min = None
+
+    def run(self):
+        while True:
+            wf_event.wait(); wf_event.clear()
+            if frame_buffer is None:
+                continue
+
+            frame = np.asarray(frame_buffer)[-1]
+
+            pos, height = _optimise_single(frame)
+
+            predicted = np.concatenate(
+                [pos[:, None, :], height[:, None, None]], axis=-1
+            ) 
+
+            vol = float(get_volume_rt(predicted)[0])
+
+            if self.min is not None:
+                self.min = np.min([self.min,vol])
+            else:
+                self.min = vol
+                continue
+
+            r_vol = vol/self.min
+
+            print({"pid": "central", "type": "wf", "volume": r_vol})
+
+            _safe_send(
+                self.loop,
+                self.ws,
+                {"pid": "central", "type": "wf", "volume": r_vol},
             )

@@ -57,5 +57,33 @@ async def websocket_endpoint(ws_socket: WebSocket):
                     ws.pred_event.set()
                 if len(frame_buffer) >= ws.s_freq * 2:
                     ws.efhr_event.set()
+                ws.wf_event.set()
+    except Exception as exc:
+        logger.info("WebSocket closed: %s", exc)
+
+
+@app.websocket("/ws2")
+async def websocket_endpoint_secondary(ws_socket: WebSocket):
+    await ws_socket.accept()
+    await ws_socket.send_json(
+        {"pid": "central", "type": "msg", "message": "Connected!"}
+    )
+
+    loop = asyncio.get_running_loop()
+    ws.WfWorker(ws_socket, loop).start()
+
+    try:
+        while True:
+            data = await ws_socket.receive_json()
+            if data.get("pid") == "device" and data.get("key") == "admin":
+                frame = np.fromstring(data["value"], sep=",", dtype=np.float32).reshape(
+                    8, 8
+                )
+                frame_buffer.append(frame)
+                if len(frame_buffer) >= ws.s_freq * 10:
+                    ws.pred_event.set()
+                if len(frame_buffer) >= ws.s_freq * 2:
+                    ws.efhr_event.set()
+                ws.wf_event.set()
     except Exception as exc:
         logger.info("WebSocket closed: %s", exc)
