@@ -6,7 +6,7 @@ import numpy as np
 s_freq = 5
 
 FASTAPI_WS_URL = "ws://localhost:8000/ws"
-NPY_FILE = "classification_model/st_data.npy"
+NPY_FILE = "placeholder"
 
 async def push_frames():
     # Load frames
