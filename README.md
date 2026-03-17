@@ -2,78 +2,120 @@
 
 ## Introduction
 
-**MagCNWeb** is a comprehensive software package developed by the Bai group at the University of North Carolina at Chapel Hill that enables magnetic field decoding, cardiac contractility (ejection fraction) computation, and real-time cardiac rhythm classification for an ESP32-S3–based, Wi-Fi–enabled Hall-effect sensor array used in conjunction with cardiac magnetic implants which streams a 64-channel, 12-bit ADC output that is reconstructed into an 8 × 8 matrix for downstream processing.
+MagCNWeb is a comprehensive software package developed by the Bai Group at the University of North Carolina at Chapel Hill. It enables magnetic field decoding, cardiac contractility (ejection fraction) computation, and real-time cardiac rhythm classification for an ESP32-S3–based, Wi-Fi–enabled Hall-effect sensor array used in conjunction with cardiac magnetic implants.
+
+The system streams a 64-channel, 12-bit ADC output that is reconstructed into an 8 × 8 matrix for downstream processing.
+
+---
 
 ## File Description
 
-*utils.py*: A barebones implementation of the core algorithm (PAGO-DeMag) for magnetic field decoding and reconstruction
+- utils.py: Barebones implementation of the core algorithm (PAGO-DeMag) for magnetic field decoding and reconstruction  
+- utils_fast.py: Performance-enhanced version of utils.py leveraging parallel processing  
+- workers_sync.py: Worker threads for parallel decoding and classification  
+- app.py: Main FastAPI application for web interface and device communication  
+- dummy.py: Simulated external device for streaming test data  
 
-*utils_fast.py*: A performance enhanced version of utils.py that leverages parallel processing
-
-*workers_sync.py*: The Main worker threads that conducts parallel processing for decoding and classification
-
-*app.py*: Main App for web peripheral handling
-
-*dummy.py*: A simulated "dummy" external web device that streams simulated sensor data
+---
 
 ## Requirements
-The software package was tested on Windows 11 using python 3.11 and requires the latest version of numpy, websockets, scipy, tensorflow,
-uvicorn, cv2, and fastapi available in Aug 2025. All packages are available through PyPI and can be installed through `pip install` command.
-Additionally, standard python packages like logging, collections and typing are also required
+
+The software package was tested on:
+
+- Windows 11  
+- Python 3.11  
+
+Required Python packages (tested with versions available as of August 2025):
+
+- numpy  
+- scipy  
+- tensorflow  
+- fastapi  
+- uvicorn  
+- websockets  
+- opencv-python  
+
+All packages are available via PyPI.
+
+---
 
 ## Installation
-To intsall python 3.11, navigate to [this link](https://www.python.org/downloads/release/python-3110/) for an official python installer:
-The software package can be installed through cloning this github repository using the following command:
-```bash
-git clone https://github.com/sxing1208/MagCNWeb
-```
-all python packages can be installed through PyPI. The following bash command can be used for dependency installations.
-```bash
+
+Install Python 3.11 from the official website:  
+https://www.python.org/downloads/release/python-3110/
+
+Clone the repository:
+
+git clone https://github.com/sxing1208/MagCNWeb  
 cd MagCNWeb
+
+Install dependencies:
+
 py -V:3.11 -m pip install opencv-python numpy matplotlib websockets tensorflow uvicorn fastapi scipy
-```
-Typically, the installation process takes around 10min including source code and dependencies.
 
-## Demo and Instruction for Usage
-The user may choose to run a demo by running *app.py* locally along with *dummy.py*.
-To begin the demo process, open a terminal in the same folder as MagCNWeb.
-First, load app.py using uvicorn using the following command
-```bash
+Typical installation time is approximately 10 minutes, including dependencies.
+
+---
+
+## Demo and Usage
+
+### Local Demo
+
+Run the application:
+
 py -V:3.11 -m uvicorn app:app --host 127.0.0.1 --port 8000
-```
-Then, in a separate terminal, run dummy.py
-```bash
+
+In a separate terminal, run the simulated device:
+
 py -V:3.11 dummy.py
-```
-The user should expect to see a reduced calculated ejection fraction, a heart rate around 100 and a rhythm of normal sinus rhythm.
-The user can also visualize the incoming waveform and continuous computational results by open [127.0.0.1:8000](127.0.0.1:8000) in the browser.
 
-To connect to a wifi peripheral, follow the following step:
+Open a browser and navigate to:
 
-*The following instructions assumes usage of the peripheral developed by Bai Group at UNC that is configured in wifi AP mode
-and streams 64 channel data through websockets*
+http://127.0.0.1:8000
 
-Connect the computer to the wireless network emitted by the peripheral device.
+Expected output:
+- Reduced calculated ejection fraction  
+- Heart rate around 100 bpm  
+- Normal sinus rhythm classification  
+- Real-time waveform visualization  
 
-Expose the local server to devices on the same network through the following command:
-```bash
+---
+
+## Using a Wi-Fi Peripheral (AP Mode)
+
+The following instructions assume usage of the Bai Group peripheral configured in Wi-Fi AP mode, streaming 64-channel data via WebSockets.
+
+### Step 1: Connect to Device Network
+Connect your computer to the Wi-Fi network emitted by the peripheral.
+
+### Step 2: Start Server (Network Accessible)
+
 py -V:3.11 -m uvicorn app:app --host 0.0.0.0 --port 8000
-```
 
-The peripheral device should stream the data through wifi now.
-The user can also visualize the incoming waveform and continuous computational results in the host computer by open [127.0.0.1:8000](127.0.0.1:8000) in the browser.
+### Step 3: View on Host Computer
 
-To visualize the incoming waveform and continuous computational results on a mobile device, connect the mobile device to the network served by the peripheral device.
+http://127.0.0.1:8000
 
-Then, check the the local device IP address of the server (computer) using `ipconfig`
-```bash
+---
+
+## Mobile Visualization
+
+1. Connect your mobile device to the same network (ESP32 AP)
+
+2. On the host computer, find the local IP address:
+
 ipconfig
-```
-Look for the IPv4 Address like this
-```
+
+Example:
+
 IPv4 Address . . . . . . . . . . : 192.168.4.2
-```
-In the mobile device's browser, type the aforementioned IP address to access the datastream.
+
+3. On your mobile device, open:
+
+http://192.168.4.2:8000
+
+---
 
 ## License
-This repo is available under MIT license.
+
+This repository is released under the MIT License.
