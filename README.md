@@ -42,16 +42,20 @@ All packages are available via PyPI.
 ## Installation
 
 Install Python 3.11 from the official website:  
-https://www.python.org/downloads/release/python-3110/
+[https://www.python.org/downloads/release/python-3110/]
 
 Clone the repository:
 
+```bash
 git clone https://github.com/sxing1208/MagCNWeb  
 cd MagCNWeb
+```
 
 Install dependencies:
 
+```bash
 py -V:3.11 -m pip install opencv-python numpy matplotlib websockets tensorflow uvicorn fastapi scipy
+```
 
 Typical installation time is approximately 10 minutes, including dependencies.
 
@@ -62,16 +66,18 @@ Typical installation time is approximately 10 minutes, including dependencies.
 ### Local Demo
 
 Run the application:
-
+```bash
 py -V:3.11 -m uvicorn app:app --host 127.0.0.1 --port 8000
+```
 
 In a separate terminal, run the simulated device:
-
+```bash
 py -V:3.11 dummy.py
+```
 
 Open a browser and navigate to:
 
-http://127.0.0.1:8000
+[http://127.0.0.1:8000]
 
 Expected output:
 - Reduced calculated ejection fraction  
@@ -89,12 +95,13 @@ The following instructions assume usage of the Bai Group peripheral configured i
 Connect your computer to the Wi-Fi network emitted by the peripheral.
 
 ### Step 2: Start Server (Network Accessible)
-
+```bash
 py -V:3.11 -m uvicorn app:app --host 0.0.0.0 --port 8000
+```
 
 ### Step 3: View on Host Computer
 
-http://127.0.0.1:8000
+[http://127.0.0.1:8000]
 
 ---
 
@@ -103,16 +110,16 @@ http://127.0.0.1:8000
 1. Connect your mobile device to the same network (ESP32 AP)
 
 2. On the host computer, find the local IP address:
-
+```bash
 ipconfig
-
+```
 Example:
-
+```
 IPv4 Address . . . . . . . . . . : 192.168.4.2
-
+```
 3. On your mobile device, open:
 
-http://192.168.4.2:8000
+[http://192.168.4.2:8000] (Or your custom IP address)
 
 ---
 
