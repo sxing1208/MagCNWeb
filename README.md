@@ -9,9 +9,13 @@ for ESP32S3-based, wifi enabled Hall-effect sensor array used in conjunction wit
 ## File Description
 
 *utils.py*: A barebones implementation of the core algorithm (PAGO-DeMag) for magnetic field decoding and reconstruction
+
 *utils_fast.py*: A performance enhanced version of utils.py that leverages parallel processing
+
 *works_sync.py*: The Main worker threads that conducts parallel processing for decoding and classifcation
+
 *app.py*: Main App for web peripheral handling
+
 *dummy.py*: A simulated "dummy" external web device that streams simulated sensor data
 
 ## Requirements
