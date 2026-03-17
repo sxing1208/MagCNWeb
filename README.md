@@ -48,8 +48,34 @@ Then, in a separate terminal, run dummy.py
 py -V:3.11 dummy.py
 ```
 The user should expect to see a reduced calculated ejection fraction, a heart rate around 100 and a rhythm of normal sinus rhythm.
+The user can also visualize the incoming waveform and continuous computational results by open [127.0.0.1:8000](127.0.0.1:8000) in the browser.
 
-To connect to a wifi peripheral, ensure both devices are under the same network and make app.py available through local network
+To connect to a wifi peripheral, follow the following step:
+
+*The following instructions assumes usage of the peripheral developed by Bai Group at UNC that is configured in wifi AP mode
+and streams 64 channel data through websockets*
+
+Connect the computer to the wireless network emitted by the peripheral device.
+
+Expose the local server to devices on the same network through the following command:
+```bash
+py -V:3.11 -m uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+The peripheral device should stream the data through wifi now.
+The user can also visualize the incoming waveform and continuous computational results by open [0.0.0.0:8000](0.0.0.0:8000) in the browser.
+
+To visualize the incoming waveform and continuous computational results on a mobile device, connect the mobile device to the network served by the peripheral device.
+
+Then, check the the local device IP address of the server (computer) using `ipconfig`
+```bash
+ipconfig
+```
+Look for the IPv4 Address like this
+```
+IPv4 Address . . . . . . . . . . : 192.168.4.2
+```
+In the mobile device's browse, type the aforementioned IP address to access the datastream.
 
 ## License
 This repo is available under MIT license.
