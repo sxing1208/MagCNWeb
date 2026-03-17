@@ -12,7 +12,7 @@ for ESP32S3-based, wifi enabled Hall-effect sensor array used in conjunction wit
 
 *utils_fast.py*: A performance enhanced version of utils.py that leverages parallel processing
 
-*works_sync.py*: The Main worker threads that conducts parallel processing for decoding and classifcation
+*workers_sync.py*: The Main worker threads that conducts parallel processing for decoding and classification
 
 *app.py*: Main App for web peripheral handling
 
@@ -20,11 +20,11 @@ for ESP32S3-based, wifi enabled Hall-effect sensor array used in conjunction wit
 
 ## Requirements
 The software package was tested on Windows 11 using python 3.11 and requires the latest version of numpy, websockets, scipy, tensorflow,
-uvicron, cv2, and fastapi as of Aug 2025. All packages are available through PyPI and can be install through `pip install` command.
-Additonally, standard python packages like logging, collections and typing are also required
+uvicorn, cv2, and fastapi available in Aug 2025. All packages are available through PyPI and can be installed through `pip install` command.
+Additionally, standard python packages like logging, collections and typing are also required
 
-## Intallation
-To insall python 3.11, navigate to [this link](https://www.python.org/downloads/release/python-3110/) for an offical python installer:
+## Installation
+To intsall python 3.11, navigate to [this link](https://www.python.org/downloads/release/python-3110/) for an official python installer:
 The software package can be installed through cloning this github repository using the following command:
 ```bash
 git clone https://github.com/sxing1208/MagCNWeb
@@ -34,12 +34,12 @@ all python packages can be installed through PyPI. The following bash command ca
 cd MagCNWeb
 py -V:3.11 -m pip install opencv-python numpy matplotlib websockets tensorflow uvicorn fastapi scipy
 ```
-Typically, the installation process takes around 10min including source code and dependecies.
+Typically, the installation process takes around 10min including source code and dependencies.
 
 ## Demo and Instruction for Usage
 The user may choose to run a demo by running *app.py* locally along with *dummy.py*.
 To begin the demo process, open a terminal in the same folder as MagCNWeb.
-First, load app.py using unicorn using the following command
+First, load app.py using uvicorn using the following command
 ```bash
 py -V:3.11 -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```
@@ -63,7 +63,7 @@ py -V:3.11 -m uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
 The peripheral device should stream the data through wifi now.
-The user can also visualize the incoming waveform and continuous computational results by open [0.0.0.0:8000](0.0.0.0:8000) in the browser.
+The user can also visualize the incoming waveform and continuous computational results in the host computer by open [127.0.0.1:8000](127.0.0.1:8000) in the browser.
 
 To visualize the incoming waveform and continuous computational results on a mobile device, connect the mobile device to the network served by the peripheral device.
 
@@ -75,7 +75,7 @@ Look for the IPv4 Address like this
 ```
 IPv4 Address . . . . . . . . . . : 192.168.4.2
 ```
-In the mobile device's browse, type the aforementioned IP address to access the datastream.
+In the mobile device's browser, type the aforementioned IP address to access the datastream.
 
 ## License
 This repo is available under MIT license.
