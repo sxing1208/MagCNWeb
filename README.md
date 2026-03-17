@@ -2,9 +2,7 @@
 
 ## Introduction
 
-**MagCNWeb** is a comprehensive software package developed by the Bai group at the University of North Carolina at Chapel Hill
-that enables magnetic field decoding, cardiac contractility (ejection fraction) computation, and real-time cardiac rhythm classification
-for ESP32S3-based, wifi enabled Hall-effect sensor array used in conjunction with cardiac magnetic implants.
+**MagCNWeb** is a comprehensive software package developed by the Bai group at the University of North Carolina at Chapel Hill that enables magnetic field decoding, cardiac contractility (ejection fraction) computation, and real-time cardiac rhythm classification for an ESP32-S3–based, Wi-Fi–enabled Hall-effect sensor array used in conjunction with cardiac magnetic implants which streams a 64-channel, 12-bit ADC output that is reconstructed into an 8 × 8 matrix for downstream processing.
 
 ## File Description
 
