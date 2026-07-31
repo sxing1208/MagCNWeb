@@ -109,6 +109,8 @@ py -V:3.11 -m uvicorn app:app --host 0.0.0.0 --port 8000
 
 [http://127.0.0.1:8000]
 
+An example firmware file (ExamplePeripheral.ino) has been provided for programming an ESP32-S3 board.
+
 ---
 
 ## Mobile Visualization
