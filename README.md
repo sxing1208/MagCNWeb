@@ -41,8 +41,10 @@ All packages are available via PyPI.
 
 ## Installation
 
-Install git by using [winget] in Powershell
-[winget install --id Git.Git -e --source winget]
+Install git by using ```winget``` in Powershell
+```bash
+winget install --id Git.Git -e --source winget
+```
 
 Install Python 3.11 from the official website:  
 [https://www.python.org/downloads/release/python-3110/]
