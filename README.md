@@ -42,6 +42,7 @@ All packages are available via PyPI.
 ## Installation
 
 Install git by using ```winget``` in Powershell
+
 ```bash
 winget install --id Git.Git -e --source winget
 ```
